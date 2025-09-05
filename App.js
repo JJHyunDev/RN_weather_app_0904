@@ -8,9 +8,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={{ ...styles.text, color: "blue"}}>리액트 네이티브</Text>
-      <Text style={styles.text}>리액트 네이티브</Text>
-      {/* <StatusBar backgroundColor="red" barStyle="dark-content" hidden={true}/> */}
+      <Text style={styles.text}>결과 : {number}</Text>
+      <View style={styles.btnGroup}> 
+        <Button style={styles.btn} title="증가" onPress={() => setNumber(number + 1)}/>
+        <Button style={styles.btn} title="감소" onPress={() => setNumber(number - 1)} />
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -22,11 +24,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    color: "red",
   },
   text: {
     fontSize: 50,
-    color: "red",
     fontWeight: "bold",
-  }
+  },
+  btnGroup: {
+    flexDirection: "row",
+    gap: 10,
+  },
 });
