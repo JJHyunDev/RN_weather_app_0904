@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 import React, { useState } from 'react';
 
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const App = () => {
   const [number, setNumber] = useState(0);
@@ -11,46 +12,47 @@ const App = () => {
       <View style={styles.cityCon}>
         <Text style={styles.city}>Busan</Text>
       </View>
-      <ScrollView horizontal contentContainerStyle={styles.weather}>
-        <View style={styles.weatherInner}>
+      <View style={styles.regDateCon}>
+        <Text style={styles.regDate}>9월 6일, 토, 14:08</Text>
+      </View>
+      <ScrollView horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.weather}>
+      <View style={styles.weatherInner}>
         <View style={styles.day}> 
-          <Text style={styles.regDate}>9월 6일, 토, 14:08</Text>
           <Text style={styles.desc}>맑음</Text>
         </View>
         <View style={styles.tempCon}>
           <Text style={styles.temp}>24</Text>
         </View>
       </View>
-      <View style={styles.weatherCon}>
+      <View style={styles.weatherInner}>
         <View style={styles.day}> 
-          <Text style={styles.regDate}>9월 6일, 토, 14:08</Text>
           <Text style={styles.desc}>맑음</Text>
         </View>
         <View style={styles.tempCon}>
           <Text style={styles.temp}>24</Text>
         </View>
       </View>
-      <View style={styles.weatherCon}>
+      <View style={styles.weatherInner}>
         <View style={styles.day}> 
-          <Text style={styles.regDate}>9월 6일, 토, 14:08</Text>
           <Text style={styles.desc}>맑음</Text>
         </View>
         <View style={styles.tempCon}>
           <Text style={styles.temp}>24</Text>
         </View>
       </View>
-      <View style={styles.weatherCon}>
+      <View style={styles.weatherInner}>
         <View style={styles.day}> 
-          <Text style={styles.regDate}>9월 6일, 토, 14:08</Text>
           <Text style={styles.desc}>맑음</Text>
         </View>
         <View style={styles.tempCon}>
           <Text style={styles.temp}>24</Text>
         </View>
       </View>
-      <View style={styles.weatherCon}>
+      <View style={styles.weatherInner}>
         <View style={styles.day}> 
-          <Text style={styles.regDate}>9월 6일, 토, 14:08</Text>
           <Text style={styles.desc}>맑음</Text>
         </View>
         <View style={styles.tempCon}>
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFE142",
   },
   cityCon: {
-    flex: 1,
+    flex: 0.3,
   },
   city: {
     flex: 1,
@@ -79,16 +81,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
   },
-  weather: {
-    backgroundColor: "blue",
-  },
-  weatherInner: {
-    flex: 3,
-  },
-  day: {
-    flex: 0.2,
+  regDateCon: {
     alignItems: "center",
-    justifyContent: "center",
+    textAlign: "center",
   },
   regDate: {
     padding: 10,
@@ -100,6 +95,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     borderRadius: 20,
     overflow: "hidden",
+  },
+  weather: {
+    
+  },
+  weatherInner: {
+    flex: 3,
+    width: SCREEN_WIDTH,
+  },
+  day: {
+    flex: 0.2,
+    alignItems: "center",
+    justifyContent: "center",
   },
   desc: {
     flex: 1.5,
@@ -119,4 +126,3 @@ const styles = StyleSheet.create({
 });
 
 export default App;
-
