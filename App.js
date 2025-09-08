@@ -1,16 +1,54 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import * as Location from 'expo-location';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const App = () => {
   const [number, setNumber] = useState(0);
 
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [city, setCity] = useState(null);
+
+  // 허가 여부
+  const [permitted, setPermitted] = useState(true);
+
+  const locationData = async () => {
+    const { granted } = await Location.requestForegroundPermissionsAsync();
+
+    if(!granted) {
+      setPermitted(false);
+      setErrorMsg('위치에 대한 권한 부여가 거부되었습니다.');
+
+      return;
+    }
+
+    const {
+      coords: { latitude, longitude },
+    } = await Location.getCurrentPositionAsync({accuracy: 5});
+    // console.log(latitude); // 위도
+    // console.log(longitude); // 경도
+
+    const address = await Location.reverseGeocodeAsync(
+      { latitude, longitude }, 
+      { useGoogleMaps: false }
+    );
+
+    const cityAddress = address[0].city
+    setCity(cityAddress); 
+  };
+  
+
+  useEffect(() => {
+    locationData();
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.cityCon}>
-        <Text style={styles.city}>Busan</Text>
+        <Text style={styles.city}>{city}</Text>
       </View>
       <View style={styles.regDateCon}>
         <Text style={styles.regDate}>9월 6일, 토, 14:08</Text>
