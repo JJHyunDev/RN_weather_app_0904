@@ -2,8 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import * as Location from 'expo-location';
+import { GOOGLE_GEOLOCATION_API_KEY } from "@env";
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+
+// https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=YOUR_API_KEY
 
 const App = () => {
   const [number, setNumber] = useState(0);
@@ -31,12 +34,22 @@ const App = () => {
     // console.log(latitude); // 위도
     // console.log(longitude); // 경도
 
-    const address = await Location.reverseGeocodeAsync(
-      { latitude, longitude }, 
-      { useGoogleMaps: false }
-    );
+    // const address = await Location.reverseGeocodeAsync(
+    //   { latitude, longitude }, 
+    //   { useGoogleMaps: false }
+    // );
 
-    const cityAddress = address[0].city
+    const myApiKey = GOOGLE_GEOLOCATION_API_KEY;    const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${myApiKey}`
+
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    
+    // console.log(data);
+    // console.log(data.results[4].formatted_address);
+
+    // const cityAddress = address[0].city
+
+    const cityAddress = data.results[4].formatted_address;
     setCity(cityAddress); 
   };
   
